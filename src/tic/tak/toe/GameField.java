@@ -27,8 +27,8 @@ public class GameField extends JApplet implements ActionListener{
     private Panel top = new Panel();
     private Panel center = new Panel();
     private Panel bottom = new Panel();
+
     GameField(){
-        //    LoadImages();
         init();
         setFocusable(true);
     }
@@ -97,10 +97,13 @@ public class GameField extends JApplet implements ActionListener{
             isTie = true;
             showWinner(0,0,0);
         }
-        // first horizontal
         checkHorizontal();
         checkVertical();
         checkDiagonal();
+        setScore();
+    }
+
+    private void setScore(){
         score.setText("X  "+ scoreX + " : " + "0  " + score0);
     }
 
@@ -116,10 +119,8 @@ public class GameField extends JApplet implements ActionListener{
                 writeScore(theWinner);
             }
         }
-        /*
-
-        } */
     }
+
     private void checkVertical() {
         for (int i = 0; i < 3; i++) {
             if (!squares[i].getLabel().equals("") &&
@@ -163,14 +164,10 @@ public class GameField extends JApplet implements ActionListener{
         for(int i=0;i<9;i++){
             squares[i].setBackground(Color.WHITE);
         }
-
-        if(!isTie){
-            squares[win1].setBackground(java.awt.Color.RED);
-            squares[win2].setBackground(java.awt.Color.RED);
-            squares[win3].setBackground(java.awt.Color.RED);
-        }
+        checkTie(win1, win2, win3);
         buttonNewGame.setEnabled(true);
         isInGame = false;
+
         for(int i=0;i<9;i++){
             squares[i].setEnabled(false);
         }
@@ -186,7 +183,13 @@ public class GameField extends JApplet implements ActionListener{
             score0 +=1;
         }
     }
-
+    private void checkTie(int win1, int win2, int win3){
+        if(!isTie){
+            squares[win1].setBackground(java.awt.Color.RED);
+            squares[win2].setBackground(java.awt.Color.RED);
+            squares[win3].setBackground(java.awt.Color.RED);
+        }
+    }
     private void cleanField(){
         emptySquaresLeft = 9;
         if(!isInGame)
@@ -200,13 +203,8 @@ public class GameField extends JApplet implements ActionListener{
         repaint();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-
-        Button theButton = (Button) e.getSource();
-
-        if(theButton == buttonNewGame){
+    private void startNewGame(Button button){
+        if(button == buttonNewGame){
             for(int i=0; i<9; i++){
                 squares[i].setEnabled(true);
                 squares[i].setFont(font);
@@ -216,6 +214,9 @@ public class GameField extends JApplet implements ActionListener{
             }
             isInGame = true;
         }
+    }
+
+    private void disableButtonNewGame(){
         if(isInGame){
             buttonNewGame.setEnabled(false);
             WinnerLabel.setBounds(WIDTH, -40, 135, 135);
@@ -226,25 +227,38 @@ public class GameField extends JApplet implements ActionListener{
                 buttonNewGame.setEnabled(true);
             }
         }
-        for(int i=0; i<9; i++){
+    }
 
-            if(theButton == squares[i] && turnX){
+    private void makeTurn(Button button) {
+        for (int i = 0; i < 9; i++) {
+            if (button == squares[i] && turnX) {
                 squares[i].setLabel("X");
                 squares[i].setEnabled(false);
-                turnX=false;
-                turn0=true;
+                turnX = false;
+                turn0 = true;
                 checkWinner();
                 break;
             }
 
-            if(theButton == squares[i] && turn0){
+            if (button == squares[i] && turn0) {
                 squares[i].setLabel("0");
                 squares[i].setEnabled(false);
-                turn0=false;
-                turnX=true;
+                turn0 = false;
+                turnX = true;
                 checkWinner();
                 break;
             }
         }
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        Button theButton = (Button) e.getSource();
+
+        startNewGame(theButton);
+        disableButtonNewGame();
+        makeTurn(theButton);
+
     }
 }
