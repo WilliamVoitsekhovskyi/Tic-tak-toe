@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Main extends JFrame{
 
-    public static boolean onePlayer = false , twoPlayers = false;
+    public static boolean isOnePlayer = false , twoPlayers = false;
 
     public Main() {
         setTitle("Tic-tak-toe");
@@ -18,7 +18,6 @@ public class Main extends JFrame{
     }
 
     public static void main(String[] args) {
-        //Main main = new Main();
         MainMenu mainMenu = new MainMenu();
     }
 }

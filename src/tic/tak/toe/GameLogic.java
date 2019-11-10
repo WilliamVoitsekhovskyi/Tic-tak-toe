@@ -1,13 +1,15 @@
 package tic.tak.toe;
 
 import java.awt.*;
+import java.util.Scanner;
 
 class GameLogic {
 
     private static boolean turnX = true;
     private static boolean turn0 = false;
     static boolean isInGame = true;
-
+    static boolean isFieldChecked = false;
+    static boolean flag = true;
     static void startNewGame(Button button){
         if(button == GameField.buttonNewGame){
             for(int i=0; i<9; i++){
@@ -22,6 +24,57 @@ class GameLogic {
     }
 
     static void makeTurn(Button button) {
+        if(Main.isOnePlayer)
+            onePlayerMakeTurn(button);
+        else
+            twoPlayersMakeTurns(button);
+    }
+    static void onePlayerMakeTurn(Button button) {
+        for (int i = 0; i < 9; i++) {
+            if (button == GameField.squares[i] && turnX) {
+                GameField.squares[i].setLabel("X");
+                GameField.disableButton(GameField.squares[i]);
+                turnX = false;
+                turn0 = true;
+                checkWinner();
+                test();
+                break;
+            }
+
+        }
+    }
+    public static void test(){
+            for (int i = 0; i < 9; i++) {
+            if (turn0) {
+                ComputerLogic.computerMove(i);
+//                GameField.squares[i].setLabel("0");
+//                GameField.disableButton(GameField.squares[i]);
+                turn0 = false;
+                turnX = true;
+                checkWinner();
+                    break;
+                }
+            }
+    }
+
+
+        /*flag = true;
+        while (flag) {
+            System.out.println(GameField.squares[i].getLabel());
+            System.out.println("i= "+i );
+            if (GameField.squares[i].getLabel().equals("")) {
+                GameField.squares[i].setLabel("0");
+                flag = false;
+            }
+            else {
+                System.out.println("AGSSGA");
+                flag = true;
+                i++;
+            }
+        }
+
+         */
+    static void twoPlayersMakeTurns(Button button) {
         for (int i = 0; i < 9; i++) {
             if (button == GameField.squares[i] && turnX) {
                 GameField.squares[i].setLabel("X");
@@ -31,7 +84,6 @@ class GameLogic {
                 checkWinner();
                 break;
             }
-
             if (button == GameField.squares[i] && turn0) {
                 GameField.squares[i].setLabel("0");
                 GameField.disableButton(GameField.squares[i]);
@@ -42,6 +94,7 @@ class GameLogic {
             }
         }
     }
+
 
     static boolean isTie(){
         return GameField.emptySquaresLeft == 0;

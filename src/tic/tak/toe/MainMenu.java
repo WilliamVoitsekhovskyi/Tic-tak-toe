@@ -75,7 +75,7 @@ public class MainMenu extends JFrame implements ActionListener {
         Button button = (Button) e.getSource();
 
         if(button.getActionCommand().equals("One"))
-            Main.onePlayer = true;
+            Main.isOnePlayer = true;
         else
             Main.twoPlayers = true;
 
