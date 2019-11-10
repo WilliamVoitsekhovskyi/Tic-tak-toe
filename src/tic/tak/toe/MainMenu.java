@@ -11,7 +11,8 @@ public class MainMenu extends JFrame implements ActionListener {
     Label questionLabel, enterNameLabel;
     JPanel panel = new JPanel();
     JPanel panel1 = new JPanel();
-    JTextField firstPlayerName = new JTextField("Enter name"), secondPlayerName = new JTextField("Enter name");
+    JTextField TF_firstPlayerName = new JTextField("Enter name"), TF_secondPlayerName = new JTextField("Enter name");
+    static String firstPlayerName, secondPlayerName;
     MainMenu(){
         init();
         setFocusable(true);
@@ -61,13 +62,19 @@ public class MainMenu extends JFrame implements ActionListener {
 
     private void createTextFields(){
         panel1.add(createLabel(enterNameLabel, "Enter names"));
-        panel1.add(firstPlayerName);
-        panel1.add(secondPlayerName);
+        panel1.add(TF_firstPlayerName);
+        panel1.add(TF_secondPlayerName);
         panel1.add(createButton(confirmButton, "OK"));
         panel1.setLayout(new FlowLayout());
         this.add(panel1);
         panel1.setVisible(true);
 
+    }
+
+    public void getNames(){
+        firstPlayerName = TF_firstPlayerName.getText();
+        secondPlayerName = TF_secondPlayerName.getText();
+        System.out.println(firstPlayerName + " " + secondPlayerName);
     }
 
     @Override
@@ -82,6 +89,7 @@ public class MainMenu extends JFrame implements ActionListener {
         panel.setVisible(false);
         createTextFields();;
         if(button.getActionCommand().equals("OK")){
+            getNames();
             panel1.setVisible(false);
             this.setSize(500,500);
             this.add(new GameField());

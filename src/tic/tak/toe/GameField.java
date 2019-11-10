@@ -18,7 +18,7 @@ public class GameField extends JApplet implements ActionListener{
     static byte emptySquaresLeft = 9;
     static byte scoreX = 0, score0 = 0;
     static String theWinner = "";
-    static Font font = new Font("Bauhaus 93", Font.BOLD, 30);
+    static Font font = new Font("Bauhaus 93", Font.BOLD, 15);
     private static Panel topPanel = new Panel();
     private static Panel centerPanel = new Panel();
     private static Panel bottomPanel = new Panel();
@@ -78,15 +78,15 @@ public class GameField extends JApplet implements ActionListener{
         this.add(centerPanel, "Center");
     }
 
-    private void createBottomPanel(){
-        this.add(bottomPanel,"South");
+    private void createBottomPanel() {
+        this.add(bottomPanel, "South");
         createField();
-        createWinnerLabel();
         createScoreLabel();
+        createWinnerLabel();
         bottomPanel.add(score);
         bottomPanel.add(WinnerLabel);
+        bottomPanel.setLayout(new GridLayout(1, 3));
     }
-
     public static void cleanField(){
         emptySquaresLeft = 9;
         if(!GameLogic.isInGame)
@@ -99,14 +99,17 @@ public class GameField extends JApplet implements ActionListener{
     public static void disableButton(Button button){
         if(GameLogic.isInGame){
             button.setEnabled(false);
-            WinnerLabel.setBounds(WIDTH, -40, 135, 135);
-            score.setBounds(350, -40, 135, 135);
-            WinnerLabel.setText("You turn!");
+      //      WinnerLabel.setBounds(WIDTH, -40, 135, 135);
+      //      score.setBounds(350, -40, 135, 135);
+            if(GameLogic.turnX)
+                WinnerLabel.setText("Your turn, " + MainMenu.firstPlayerName + "!");
+            else if(GameLogic.turn0 && !Main.isOnePlayer)
+                WinnerLabel.setText("Your turn, " + MainMenu.secondPlayerName + "!");
         }
     }
 
     public static void setScore(){
-        score.setText("X  "+ scoreX + " : " + "0  " + score0);
+        score.setText(MainMenu.firstPlayerName + " " + scoreX + " : " + MainMenu.secondPlayerName + " " + score0);
     }
 
     @Override

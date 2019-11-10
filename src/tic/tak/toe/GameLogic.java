@@ -5,8 +5,8 @@ import java.util.Scanner;
 
 class GameLogic {
 
-    private static boolean turnX = true;
-    private static boolean turn0 = false;
+    static boolean turnX = true;
+    static boolean turn0 = false;
     static boolean isInGame = true;
     static boolean isFieldChecked = false;
     static boolean flag = true;
