@@ -1,21 +1,19 @@
 package tic.tak.toe;
 
-public class ComputerLogic {
-    public static void computerMove(int i) {
+class ComputerLogic {
+    static void computerMove(int i) {
         GameLogic.isFieldChecked = false;
         while (!GameLogic.isFieldChecked) {
-            System.out.println(i);
-            int random = (int) (Math.random() * 8);
-            if ((GameField.squares[0].getLabel().equals("X")) && (GameField.squares[1].getLabel().equals("X"))) {
-                GameField.squares[2].setLabel("0");
-                GameField.disableButton(GameField.squares[2]);
-                GameLogic.isFieldChecked = true;
-            } else if (!GameField.squares[random].getLabel().equals("X")) {
+            int random = (int) (Math.random() * 9);
+            if (!GameField.squares[random].getLabel().equals("X") && !GameField.squares[random].getLabel().equals("0")) {
                 System.out.println(random);
                 GameField.squares[random].setLabel("0");
                 GameField.disableButton(GameField.squares[random]);
                 GameLogic.isFieldChecked = true;
-            } else {
+            } else if(GameField.emptySquaresLeft == 0){
+                GameLogic.isFieldChecked = true;
+            }
+            else{
                 GameLogic.isFieldChecked = false;
             }
         }

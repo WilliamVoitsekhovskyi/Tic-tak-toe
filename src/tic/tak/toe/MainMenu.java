@@ -6,12 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MainMenu extends JFrame implements ActionListener {
-    Button onePlayerButton, twoPlayerButton;
-    Button confirmButton;
-    Label questionLabel, enterNameLabel;
-    JPanel panel = new JPanel();
-    JPanel panel1 = new JPanel();
-    JTextField TF_firstPlayerName = new JTextField("Enter name"), TF_secondPlayerName = new JTextField("Enter name");
+    private Button onePlayerButton, twoPlayerButton;
+    private Button confirmButton;
+    private Label questionLabel, enterNameLabel;
+    private JPanel EnterAmountOfPlayersPanel = new JPanel();
+    private JPanel EnterNamesPanel = new JPanel();
+    private JTextField TF_firstPlayerName = new JTextField("Enter name"), TF_secondPlayerName = new JTextField("Enter name");
     static String firstPlayerName, secondPlayerName;
     MainMenu(){
         init();
@@ -21,7 +21,7 @@ public class MainMenu extends JFrame implements ActionListener {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
         setResizable(false);
-        add(panel);
+        add(EnterAmountOfPlayersPanel);
     }
 
     public void setAskPanel(){
@@ -50,31 +50,33 @@ public class MainMenu extends JFrame implements ActionListener {
         c.setForeground(Color.WHITE);
     }
     private void createPanel(){
-        panel.add(createLabel(questionLabel, "One or two players?"));
-        panel.add(createButton(onePlayerButton, "One"));
-        panel.add(createButton(twoPlayerButton, "Two"));
-        panel.setLayout(new GridLayout(3,1));
-        panel.setSize(200,200);
-        panel.setLocation(0, 0);
-        panel.setVisible(true);
-        this.add(panel);
+        EnterAmountOfPlayersPanel.add(createLabel(questionLabel, "One or two players?"));
+        EnterAmountOfPlayersPanel.add(createButton(onePlayerButton, "One"));
+        EnterAmountOfPlayersPanel.add(createButton(twoPlayerButton, "Two"));
+        EnterAmountOfPlayersPanel.setLayout(new GridLayout(3,1));
+        EnterAmountOfPlayersPanel.setSize(200,200);
+        EnterAmountOfPlayersPanel.setLocation(0, 0);
+        EnterAmountOfPlayersPanel.setVisible(true);
+        this.add(EnterAmountOfPlayersPanel);
+    }
+    private TextField createTextField(TextField textField, String text){
+        textField = new TextField(text);
+        setComponentColor(textField);
+        return textField;
+    }
+    private void createEnterNamesPanel(){
+        EnterNamesPanel.add(createLabel(enterNameLabel, "Enter names"));
+        EnterNamesPanel.add(TF_firstPlayerName);
+        EnterNamesPanel.add(TF_secondPlayerName);
+        EnterNamesPanel.add(createButton(confirmButton, "OK"));
+        EnterNamesPanel.setLayout(new GridLayout(4,1));
+        this.add(EnterNamesPanel);
+        EnterNamesPanel.setVisible(true);
     }
 
-    private void createTextFields(){
-        panel1.add(createLabel(enterNameLabel, "Enter names"));
-        panel1.add(TF_firstPlayerName);
-        panel1.add(TF_secondPlayerName);
-        panel1.add(createButton(confirmButton, "OK"));
-        panel1.setLayout(new FlowLayout());
-        this.add(panel1);
-        panel1.setVisible(true);
-
-    }
-
-    public void getNames(){
+    private void getNames(){
         firstPlayerName = TF_firstPlayerName.getText();
         secondPlayerName = TF_secondPlayerName.getText();
-        System.out.println(firstPlayerName + " " + secondPlayerName);
     }
 
     @Override
@@ -86,11 +88,15 @@ public class MainMenu extends JFrame implements ActionListener {
         else
             Main.twoPlayers = true;
 
-        panel.setVisible(false);
-        createTextFields();;
+        EnterAmountOfPlayersPanel.setVisible(false);
+        createEnterNamesPanel();
+        if(Main.isOnePlayer){
+            TF_secondPlayerName.setText("Computer");
+            TF_secondPlayerName.setEnabled(false);
+        }
         if(button.getActionCommand().equals("OK")){
             getNames();
-            panel1.setVisible(false);
+            EnterNamesPanel.setVisible(false);
             this.setSize(500,500);
             this.add(new GameField());
             GameField.buttonNewGame.setEnabled(true);
