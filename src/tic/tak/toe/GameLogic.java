@@ -22,7 +22,6 @@ class GameLogic {
     }
 
     static void makeTurn(Button button) {
-        System.out.println(Main.isOnePlayer);
         if(Main.isOnePlayer)
             onePlayerMakeTurn(button);
         else
@@ -76,7 +75,8 @@ class GameLogic {
     }
 
 
-    private static boolean isTie(){
+    public static boolean isTie(){
+        System.out.println(GameField.emptySquaresLeft);
         return GameField.emptySquaresLeft == 0;
     }
 
@@ -86,7 +86,6 @@ class GameLogic {
         checkDiagonal();
         GameField.setScore();
         GameField.emptySquaresLeft--;
-        System.out.println("E" + GameField.emptySquaresLeft);
         if(isTie() && isInGame){
             GameField.WinnerLabel.setText("Tie!");
             GameField.buttonNewGame.setEnabled(true);
@@ -133,7 +132,7 @@ class GameLogic {
             writeScore(GameField.theWinner);
         }
     }
-    private static void showWinner(int win1, int win2, int win3){
+    public static void showWinner(int win1, int win2, int win3){
         showWhiteField();
 
         if(!isTie())
@@ -173,5 +172,11 @@ class GameLogic {
                 writeScore(GameField.theWinner);
             }
         }
+    }
+    public static boolean isX(int i){
+        return GameField.squares[i].getLabel().equals("X");
+    }
+    public static boolean is0(int i){
+        return GameField.squares[i].getLabel().equals("0");
     }
 }
