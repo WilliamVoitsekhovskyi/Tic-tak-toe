@@ -2,7 +2,7 @@ package tic.tak.toe;
 
 class ComputerLogic {
 
-    static void computerMove(int i) {
+    static void computerMove() {
         int selectedSquare;
         selectedSquare = findEmptySquare("0");
 

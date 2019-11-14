@@ -11,7 +11,7 @@ public class MainMenu extends JFrame implements ActionListener {
     private Label questionLabel, enterNameLabel;
     private static JPanel EnterAmountOfPlayersPanel = new JPanel();
     private JPanel EnterNamesPanel = new JPanel();
-    private JTextField TF_firstPlayerName = new JTextField("Enter name"), TF_secondPlayerName = new JTextField("Enter name");
+    private JTextField TF_firstPlayerName = new JTextField("Player X"), TF_secondPlayerName = new JTextField("Player 0");
     static String firstPlayerName, secondPlayerName;
     MainMenu(){
         init();

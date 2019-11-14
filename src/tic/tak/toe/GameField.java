@@ -101,24 +101,24 @@ public class GameField extends JApplet implements ActionListener{
             button.setEnabled(false);
       //      WinnerLabel.setBounds(WIDTH, -40, 135, 135);
       //      score.setBounds(350, -40, 135, 135);
-            if(GameLogic.turnX)
-                WinnerLabel.setText("Your turn, " + MainMenu.firstPlayerName + "!");
-            else if(GameLogic.turn0 && !GameLogic.isOnePlayer)
-                WinnerLabel.setText("Your turn, " + MainMenu.secondPlayerName + "!");
         }
     }
-
+    private void showWhoTurn(){
+        if(GameLogic.turnX)
+            WinnerLabel.setText("Your turn, " + MainMenu.firstPlayerName + "!");
+        else if(GameLogic.turn0 && !GameLogic.isOnePlayer)
+            WinnerLabel.setText("Your turn, " + MainMenu.secondPlayerName + "!");
+    }
     static void setScore(){
         score.setText(MainMenu.firstPlayerName + " " + scoreX + " : " + MainMenu.secondPlayerName + " " + score0);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         Button theButton = (Button) e.getSource();
-            GameLogic.startNewGame(theButton);
-            disableButton(buttonNewGame);
-            GameLogic.makeTurn(theButton);
-
+        GameLogic.startNewGame(theButton);
+        disableButton(buttonNewGame);
+        GameLogic.makeTurn(theButton);
+        showWhoTurn();
     }
 }

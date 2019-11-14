@@ -3,13 +3,14 @@ package tic.tak.toe;
 import java.awt.*;
 
 class GameLogic {
-    public static boolean isOnePlayer = false , twoPlayers = false;
+    static boolean isOnePlayer = false , twoPlayers = false;
     static boolean turnX = true;
     static boolean turn0 = false;
     static boolean isInGame = true;
+
     static void startNewGame(Button button){
         if(button == GameField.buttonNewGame){
-            for(int i=0; i<9; i++){
+            for(int i=0; i < 9; i++){
                 GameField.squares[i].setEnabled(true);
                 GameField.squares[i].setFont(GameField.font);
             }
@@ -26,6 +27,7 @@ class GameLogic {
         else
             twoPlayersMakeTurns(button);
     }
+
     private static void onePlayerMakeTurn(Button button) {
         for (int i = 0; i < 9; i++) {
             if (button == GameField.squares[i] && turnX) {
@@ -40,10 +42,11 @@ class GameLogic {
 
         }
     }
+
     private static void computerTurn(){
             for (int i = 0; i < 9; i++) {
             if (turn0) {
-                ComputerLogic.computerMove(i);
+                ComputerLogic.computerMove();
                 turn0 = false;
                 turnX = true;
                 checkWinner();
@@ -94,7 +97,7 @@ class GameLogic {
     }
 
     private static void showWhiteField(){
-        for(int i=0;i<9;i++){
+        for(int i = 0; i < 9; i++){
             GameField.squares[i].setBackground(Color.WHITE);
         }
     }
@@ -118,10 +121,12 @@ class GameLogic {
         if (!GameField.squares[0].getLabel().equals("") &&
                 GameField.squares[0].getLabel().equals(GameField.squares[4].getLabel()) &&
                 GameField.squares[0].getLabel().equals(GameField.squares[8].getLabel())) {
+
             GameField.theWinner = GameField.squares[0].getLabel();
             showWinner(0, 4, 8);
             writeScore(GameField.theWinner);
         }
+
         // diagonal right
         if (!GameField.squares[2].getLabel().equals("") &&
                 GameField.squares[2].getLabel().equals(GameField.squares[4].getLabel()) &&
@@ -131,6 +136,7 @@ class GameLogic {
             writeScore(GameField.theWinner);
         }
     }
+
     private static void showWinner(int win1, int win2, int win3){
         showWhiteField();
 
@@ -147,6 +153,7 @@ class GameLogic {
         turn0 = false;
 
     }
+
     private static void writeScore(String winner){
         if("X".equals(winner)){
             GameField.scoreX +=1;
@@ -155,6 +162,7 @@ class GameLogic {
             GameField.score0 +=1;
         }
     }
+
     private static void highlightWinner(int win1, int win2, int win3){
         GameField.squares[win1].setBackground(java.awt.Color.RED);
         GameField.squares[win2].setBackground(java.awt.Color.RED);
