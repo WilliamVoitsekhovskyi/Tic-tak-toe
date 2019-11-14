@@ -9,7 +9,7 @@ public class MainMenu extends JFrame implements ActionListener {
     private Button onePlayerButton, twoPlayerButton;
     private Button confirmButton;
     private Label questionLabel, enterNameLabel;
-    private JPanel EnterAmountOfPlayersPanel = new JPanel();
+    private static JPanel EnterAmountOfPlayersPanel = new JPanel();
     private JPanel EnterNamesPanel = new JPanel();
     private JTextField TF_firstPlayerName = new JTextField("Enter name"), TF_secondPlayerName = new JTextField("Enter name");
     static String firstPlayerName, secondPlayerName;
@@ -24,11 +24,7 @@ public class MainMenu extends JFrame implements ActionListener {
         add(EnterAmountOfPlayersPanel);
     }
 
-    public void setAskPanel(){
-
-    }
-
-    public void init() {
+    private void init() {
         createPanel();
     }
 
@@ -84,13 +80,13 @@ public class MainMenu extends JFrame implements ActionListener {
         Button button = (Button) e.getSource();
 
         if(button.getActionCommand().equals("One"))
-            Main.isOnePlayer = true;
+            GameLogic.isOnePlayer = true;
         else
-            Main.twoPlayers = true;
+            GameLogic.twoPlayers = true;
 
         EnterAmountOfPlayersPanel.setVisible(false);
         createEnterNamesPanel();
-        if(Main.isOnePlayer){
+        if(GameLogic.isOnePlayer){
             TF_secondPlayerName.setText("Computer");
             TF_secondPlayerName.setEnabled(false);
         }

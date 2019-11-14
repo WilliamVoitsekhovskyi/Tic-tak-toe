@@ -3,11 +3,10 @@ package tic.tak.toe;
 import java.awt.*;
 
 class GameLogic {
-
+    public static boolean isOnePlayer = false , twoPlayers = false;
     static boolean turnX = true;
     static boolean turn0 = false;
     static boolean isInGame = true;
-    static boolean isFieldChecked = false;
     static void startNewGame(Button button){
         if(button == GameField.buttonNewGame){
             for(int i=0; i<9; i++){
@@ -22,7 +21,7 @@ class GameLogic {
     }
 
     static void makeTurn(Button button) {
-        if(Main.isOnePlayer)
+        if(isOnePlayer)
             onePlayerMakeTurn(button);
         else
             twoPlayersMakeTurns(button);
@@ -75,7 +74,7 @@ class GameLogic {
     }
 
 
-    public static boolean isTie(){
+    static boolean isTie(){
         System.out.println(GameField.emptySquaresLeft);
         return GameField.emptySquaresLeft == 0;
     }
@@ -132,7 +131,7 @@ class GameLogic {
             writeScore(GameField.theWinner);
         }
     }
-    public static void showWinner(int win1, int win2, int win3){
+    private static void showWinner(int win1, int win2, int win3){
         showWhiteField();
 
         if(!isTie())
@@ -172,11 +171,5 @@ class GameLogic {
                 writeScore(GameField.theWinner);
             }
         }
-    }
-    public static boolean isX(int i){
-        return GameField.squares[i].getLabel().equals("X");
-    }
-    public static boolean is0(int i){
-        return GameField.squares[i].getLabel().equals("0");
     }
 }

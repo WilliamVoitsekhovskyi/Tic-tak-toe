@@ -87,7 +87,7 @@ public class GameField extends JApplet implements ActionListener{
         bottomPanel.add(WinnerLabel);
         bottomPanel.setLayout(new GridLayout(1, 3));
     }
-    public static void cleanField(){
+    static void cleanField(){
         emptySquaresLeft = 9;
         if(!GameLogic.isInGame)
             for(int i=0; i<9; i++){
@@ -96,19 +96,19 @@ public class GameField extends JApplet implements ActionListener{
             }
     }
 
-    public static void disableButton(Button button){
+    static void disableButton(Button button){
         if(GameLogic.isInGame){
             button.setEnabled(false);
       //      WinnerLabel.setBounds(WIDTH, -40, 135, 135);
       //      score.setBounds(350, -40, 135, 135);
             if(GameLogic.turnX)
                 WinnerLabel.setText("Your turn, " + MainMenu.firstPlayerName + "!");
-            else if(GameLogic.turn0 && !Main.isOnePlayer)
+            else if(GameLogic.turn0 && !GameLogic.isOnePlayer)
                 WinnerLabel.setText("Your turn, " + MainMenu.secondPlayerName + "!");
         }
     }
 
-    public static void setScore(){
+    static void setScore(){
         score.setText(MainMenu.firstPlayerName + " " + scoreX + " : " + MainMenu.secondPlayerName + " " + score0);
     }
 
@@ -116,9 +116,9 @@ public class GameField extends JApplet implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         Button theButton = (Button) e.getSource();
-        GameLogic.startNewGame(theButton);
-        disableButton(buttonNewGame);
-        GameLogic.makeTurn(theButton);
+            GameLogic.startNewGame(theButton);
+            disableButton(buttonNewGame);
+            GameLogic.makeTurn(theButton);
 
     }
 }

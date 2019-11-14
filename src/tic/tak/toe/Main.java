@@ -1,12 +1,9 @@
 package tic.tak.toe;
 
-import java.awt.BorderLayout;
 import javax.swing.*;
 
 
 public class Main extends JFrame{
-
-    public static boolean isOnePlayer = false , twoPlayers = false;
 
     public Main() {
         setTitle("Tic-tak-toe");
