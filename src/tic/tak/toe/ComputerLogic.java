@@ -21,8 +21,8 @@ class ComputerLogic {
         GameField.disableButton(GameField.squares[selectedSquare]);
     }
 
-    static int findEmptySquare(String player) {
-        int weight[] = new int[9];
+    private static int findEmptySquare(String player) {
+        int[] weight = new int[9];
         for ( int i = 0; i < 9; i++ ) {
             if ( GameField.squares[i].getLabel().equals("0") )
                 weight[i] = -1;
@@ -79,7 +79,7 @@ class ComputerLogic {
         return -1;
     }
 
-    static int getRandomSquare() {
+    private static int getRandomSquare() {
         boolean gotEmptySquare = false;
         int selectedSquare = -1;
         do {
