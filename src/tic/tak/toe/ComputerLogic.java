@@ -1,9 +1,10 @@
 package tic.tak.toe;
 
+// клас що описує логіку комп'ютера
 class ComputerLogic {
 
     static void computerMove() {
-        int selectedSquare;
+        int selectedSquare; //обраний квадрат
         selectedSquare = findEmptySquare("0");
 
         if ( selectedSquare == -1 )
@@ -31,9 +32,8 @@ class ComputerLogic {
             else
                 weight[i] = 0;
         }
-        int twoWeights = player.equals("0") ? -2 : 2;
-// Проверим, есть ли в ряду 1 две одинаковые клетки и
-// одна пустая.
+        int twoWeights = player.equals("0") ? -2 : 2; // тернарна операція для порівнювання чи в ряді є 2 однакових символа
+        //підрахунок символів Х чи 0 в рядах
         for (int i = 0; i <= 6; i += 3) {
             if ( weight[i] + weight[i+1] + weight[i+2] == twoWeights ) {
                 if ( weight[i] == 0 )
@@ -44,7 +44,7 @@ class ComputerLogic {
                     return i+2;
             }
         }
-
+        //підрахунок символів Х чи 0 в стовпчиках(чи є 2 однакових символа і 1 порожня)
         for (int i = 0; i < 3; i++)
         if (weight[i] + weight[i+3] + weight[i+6] == twoWeights) {
             if ( weight[i] == 0 )
@@ -55,8 +55,7 @@ class ComputerLogic {
                 return i+6;
         }
 
-// Проверим, есть ли в диагонали 1 две одинаковые клетки
-// и одна пустая.
+//підрахунок символів Х чи 0 в рядах в 1-й діагоналі(чи є 2 однакових символа і 1 порожня)
         if (weight[0] + weight[4] + weight[8] == twoWeights ){
             if ( weight[0] == 0 )
                 return 0;
@@ -65,8 +64,7 @@ class ComputerLogic {
             else
                 return 8;
         }
-// Проверим, есть ли в диагонали 2 две одинаковые клетки
-// и одна пустая.
+//підрахунок символів Х чи 0 в рядах в 2-й діагоналі(чи є 2 однакових символа і 1 порожня)
         if (weight[2] + weight[4] + weight[6] == twoWeights ){
             if ( weight[2] == 0 )
                 return 2;
@@ -75,19 +73,20 @@ class ComputerLogic {
             else
                 return 6;
         }
-// Не найдено двух одинаковых соседних клеток
+//не знайдено двух однакових символів в сусідніх клітинках
         return -1;
     }
 
+    //Якщо немає кращого ходу то поставимо символ у випадкову клітинку
     private static int getRandomSquare() {
         boolean gotEmptySquare = false;
         int selectedSquare = -1;
         do {
             selectedSquare = (int) (Math.random() * 9 );
             if (GameField.squares[selectedSquare].getLabel().equals("") || GameLogic.isTie()){
-                gotEmptySquare = true; // чтобы закончить цикл
+                gotEmptySquare = true; //закінчуємо цикл(ми знайшли пусту клітинку і вписали в неї символ)
             }
         } while (!gotEmptySquare );
-        return selectedSquare;
+        return selectedSquare; //клітинка в яку вписали
     }
 }

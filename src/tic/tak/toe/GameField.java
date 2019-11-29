@@ -63,21 +63,26 @@ public class GameField extends JApplet implements ActionListener{
             centerPanel.add(squares[i]);
         }
     }
+
+    // встановлюємо колір заднього фону
     private void setBackgroundColor(){
         topPanel.setBackground(Color.DARK_GRAY);
         centerPanel.setBackground(Color.DARK_GRAY);
         bottomPanel.setBackground(Color.DARK_GRAY);
     }
+
+    //створюємо верхню панель і додаєм елементи
     private void createTopPanel(){
         topPanel.add(buttonNewGame);
         this.add(topPanel, "North");
     }
 
+    //створюємо центральну панель і додаєм елементи
     private void createCenterPanel(){
         centerPanel.setLayout(new GridLayout (3,3));
         this.add(centerPanel, "Center");
     }
-
+    //створюємо нижню панель і додаєм елементи
     private void createBottomPanel() {
         this.add(bottomPanel, "South");
         createField();
@@ -87,6 +92,8 @@ public class GameField extends JApplet implements ActionListener{
         bottomPanel.add(WinnerLabel);
         bottomPanel.setLayout(new GridLayout(1, 3));
     }
+
+    //прибрати символи з поля
     static void cleanField(){
         emptySquaresLeft = 9;
         if(!GameLogic.isInGame)
@@ -96,29 +103,32 @@ public class GameField extends JApplet implements ActionListener{
             }
     }
 
+    //зробити неактивною кнопку
     static void disableButton(Button button){
-        if(GameLogic.isInGame){
+        if(GameLogic.isInGame)
             button.setEnabled(false);
-      //      WinnerLabel.setBounds(WIDTH, -40, 135, 135);
-      //      score.setBounds(350, -40, 135, 135);
-        }
     }
+
+    //показує чій хід
     private void showWhoTurn(){
         if(GameLogic.turnX)
             WinnerLabel.setText("Your turn, " + MainMenu.firstPlayerName + "!");
         else if(GameLogic.turn0 && !GameLogic.isOnePlayer)
             WinnerLabel.setText("Your turn, " + MainMenu.secondPlayerName + "!");
     }
+
+    //встановити рахунок
     static void setScore(){
         score.setText(MainMenu.firstPlayerName + " " + scoreX + " : " + MainMenu.secondPlayerName + " " + score0);
     }
 
+    //перевірка події
     @Override
     public void actionPerformed(ActionEvent e) {
         Button theButton = (Button) e.getSource();
-        GameLogic.startNewGame(theButton);
-        disableButton(buttonNewGame);
-        GameLogic.makeTurn(theButton);
+        GameLogic.startNewGame(theButton); //якщо нажата кнопка нова гра
+        disableButton(buttonNewGame); //зробити кнопку нова гра недоступною
+        GameLogic.makeTurn(theButton); //робим хід і малюємо у нажатому квадраті символ
         showWhoTurn();
     }
 }

@@ -4,7 +4,7 @@ import javax.swing.*;
 
 
 public class Main extends JFrame{
-
+//створюємо вікно
     public Main() {
         setTitle("Tic-tak-toe");
         setSize(500, 500);
@@ -15,6 +15,7 @@ public class Main extends JFrame{
     }
 
     public static void main(String[] args) {
+        //викликаємо конструктор класу MainMenu, розпочинаємо програму
         MainMenu mainMenu = new MainMenu();
     }
 }
